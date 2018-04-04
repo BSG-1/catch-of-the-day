@@ -1,6 +1,6 @@
 import React from 'react';
 
-//Storpicker component
+{/*Storpicker component*/}
 class StorePicker extends React.Component {
     render(){
         return(
