@@ -22,11 +22,23 @@ class App extends React.Component {
     }
 
     //React lifecycle method
+    //this runs right before the <App> is rendered
     componentWillMount() {
         this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
             context: this,
             state: 'fishes'
         });
+    
+        //check if theres any order in localstorage
+        const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+
+        if (localStorageRef) {
+            //update our App component's order state
+            this.setState({
+                //turn the string back into an object
+                order: JSON.parse(localStorageRef)
+            })
+        }
     }
 
     //React lifecycle method
@@ -36,8 +48,9 @@ class App extends React.Component {
 
     //React lifecycle method to enable localStorage
     componentWillUpdate(nextProps, nextState) {
-        console.log("something changed");
-        console.log(nextProps, nextState);
+        // console.log("something changed");
+        // console.log({nextProps, nextState)};
+        localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextstate.order))
     }
 
     addFish(fish) {
@@ -77,7 +90,11 @@ class App extends React.Component {
                         }
                     </ul>
                 </div>
-                <Order fishes={this.state.fishes} order={this.state.order}/>
+                <Order 
+                    fishes={this.state.fishes} 
+                    order={this.state.order}
+                    params={this.props.params}
+                />
                 <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
             </div>
         )
