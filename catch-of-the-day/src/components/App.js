@@ -29,8 +29,15 @@ class App extends React.Component {
         });
     }
 
+    //React lifecycle method
     componentWillUnmount() {
         base.removeBinding(this.ref);
+    }
+
+    //React lifecycle method to enable localStorage
+    componentWillUpdate(nextProps, nextState) {
+        console.log("something changed");
+        console.log(nextProps, nextState);
     }
 
     addFish(fish) {
