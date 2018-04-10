@@ -10,15 +10,17 @@ class Inventory extends React.Component {
 
     handleChange(e, key) {
         const fish = this.props.fishes[key];
-        console.log(fish);
+        // console.log(fish);
         //take a copy of that fish and update it with the new data
         //console.log(e.target.name, e.target.value) <-- what this does is capture the actual element(in this case "name"), value (the new value you're putting there)
         const updatedFish = {
             ...fish,
             //computed property
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         }
-        console.log(updatedFish)
+        this.props.updateFish(key, updatedFish);
+        // next step is to take this updatedFish and pass to the App component which actually renders the fish name/value
+        // console.log(updatedFish)
 
     }
 
